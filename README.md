@@ -160,10 +160,13 @@ frontend/
 1. Copy environment variables:
    - `cp .env.example .env`
 2. Configure Oracle credentials in `.env` or use a local Oracle instance.
-3. Start the backend:
+3. Install backend dependencies:
+   - `cd backend`
+   - `python -m pip install -r requirements.txt`
+4. Start the backend:
    - `cd backend`
    - `uvicorn app:app --reload`
-4. Start the frontend:
+5. Start the frontend:
    - `cd frontend`
    - `npm install`
    - `npm run dev`
