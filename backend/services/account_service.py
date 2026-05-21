@@ -33,6 +33,9 @@ class AccountService:
     def get_account(self, account_id: int):
         return self.db.query(Account).filter(Account.account_id == account_id).first()
 
+    def list_accounts(self):
+        return self.db.query(Account).all()
+
     def get_balance(self, account_id: int):
         account = self.get_account(account_id)
         return float(account.balance) if account else None

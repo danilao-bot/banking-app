@@ -141,6 +141,40 @@ frontend/
 
 ---
 
+## Current implementation status
+
+### What is implemented now
+- Backend FastAPI service with auth, customer, account, and transaction routes.
+- Core transaction flows for deposit, withdrawal, transfer, and transaction history.
+- Transfer flow now includes a confirmation screen and dedicated receipt page.
+- Transaction detail page available for audit-style lookup.
+- Frontend Next.js app with login, dashboard, customer management, account management, and transaction workflows.
+
+### GitHub readiness notes
+- Keep `.env` out of version control. Use `.env.example` as the template for environment configuration.
+- Do not commit `frontend/node_modules/`, `frontend/.next/`, or other generated build artifacts.
+- `backend/venv/`, `__pycache__/`, and other runtime files are ignored by `.gitignore`.
+- The repository should include source files only, not local secrets or environment files.
+
+### Local setup
+1. Copy environment variables:
+   - `cp .env.example .env`
+2. Configure Oracle credentials in `.env` or use a local Oracle instance.
+3. Start the backend:
+   - `cd backend`
+   - `uvicorn app:app --reload`
+4. Start the frontend:
+   - `cd frontend`
+   - `npm install`
+   - `npm run dev`
+
+### Oracle database note
+- Oracle Cloud may require billing setup even for the free tier.
+- If you are not ready to use Oracle Cloud, prepare a local Oracle environment or compatible development database.
+- Keep Oracle credentials private and do not commit them.
+
+---
+
 ## Phase 2 — System Architecture
 
 ### Goal of this phase
@@ -703,7 +737,136 @@ The project has officially started coding in the backend. The next phase will re
 
 ---
 
-## Next step after approval
-Once you say **continue**, I will move to Phase 8 and implement authentication, registration, login, and JWT-based role checking.
+## Phase 8 — Authentication and User Management
 
-> Please review the backend foundation and say `continue` when ready.
+### Goal of this phase
+Implement secure registration, login, JWT token handling, and role-based access control for protected endpoints.
+
+### What was added in Phase 8
+- `backend/utils/auth.py` with token decoding and current-user dependencies
+- JWT token creation using `PyJWT`
+- `AuthService.get_user_by_id()` for user validation from token payload
+- Protected routes in `backend/routes/customers.py`, `backend/routes/accounts.py`, and `backend/routes/transactions.py`
+- `OAuth2PasswordBearer` support for bearer token authorization
+
+### Auth behavior
+- `POST /api/auth/register`: create user and a customer profile, return JWT
+- `POST /api/auth/login`: validate email/password, return JWT
+- Protected endpoints require `Authorization: Bearer <token>`
+- Role checks use the token payload and can be extended to `ADMIN`, `EMPLOYEE`, or `MANAGER`
+
+### Example request headers
+```
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+```
+
+### Phase 8 outcome
+The backend now supports authentication and route protection. The foundation is ready for account and transaction workflows under authenticated users.
+
+---
+
+## Phase 9 — Banking Core Functions
+
+### Goal of this phase
+Build the core banking operations: customer creation, account creation, deposit, withdrawal, transfer, balance inquiry, and transaction history.
+
+### What was implemented
+- Added `POST /api/customers/` for creating new customer records
+- Added `GET /api/customers/` for listing customers
+- Added robust account creation and balance endpoints
+- Implemented deposit, withdrawal, and transfer logic in `TransactionService`
+- Created dual transaction records for transfers so both source and destination accounts have audit entries
+- Added validation for positive amounts and account status checks
+
+### Core endpoints now available
+- `POST /api/customers/`
+- `GET /api/customers/`
+- `GET /api/customers/{customer_id}`
+- `POST /api/accounts/`
+- `GET /api/accounts/{account_id}/balance`
+- `POST /api/transactions/deposit`
+- `POST /api/transactions/withdraw`
+- `POST /api/transactions/transfer`
+- `GET /api/transactions/history/{account_id}`
+
+### Phase 9 outcome
+The backend now supports the full MVP banking flow for customers and accounts. Transaction histories and balance checks are available for authenticated users.
+
+---
+
+## Phase 10 — Advanced Banking Modules
+
+### Goal of this phase
+Add advanced backend capabilities for loans, cards, branches, employees, admin roles, audits, and notifications.
+
+### What was implemented
+- `Branch` management with create/list/get endpoints
+- `Employee` records for staff and branch assignments
+- `Loan` request and approval flow with role-based approval
+- `Card` issuance and card listing
+- `AuditLog` record storage for admin review
+- `Notification` creation, listing, and read marking
+
+### Advanced endpoints now available
+- `POST /api/branches/`
+- `GET /api/branches/`
+- `GET /api/branches/{branch_id}`
+- `POST /api/employees/`
+- `GET /api/employees/`
+- `GET /api/employees/{employee_id}`
+- `POST /api/loans/`
+- `GET /api/loans/`
+- `POST /api/loans/{loan_id}/approve`
+- `POST /api/cards/`
+- `GET /api/cards/`
+- `GET /api/audit/`
+- `POST /api/notifications/`
+- `GET /api/notifications/`
+- `POST /api/notifications/{notification_id}/read`
+
+### Role-based access notes
+- `ADMIN` and `MANAGER` can create branches and employees.
+- `MANAGER` and `ADMIN` can approve loans and issue cards.
+- `ADMIN` can access audit logs.
+- Authenticated users can read their own notifications.
+
+### Phase 10 outcome
+The backend now includes advanced banking modules that extend the core MVP and support administrative workflows, audit visibility, and notification handling.
+
+---
+
+## Phase 11 — Frontend Pages and API Wiring
+
+### Goal of this phase
+Build the Next.js frontend pages, reusable components, and API integration for login, dashboard, customer management, and account operations.
+
+### What was implemented
+- Added a modern landing page in `src/app/page.tsx`
+- Created login page and authentication flow in `src/app/login/page.tsx`
+- Built dashboard page in `src/app/dashboard/page.tsx`
+- Added customer and account pages under `src/app/customers/page.tsx` and `src/app/accounts/page.tsx`
+- Added reusable components in `src/components/`
+- Added API and auth helpers in `src/lib/`
+
+### Frontend files created
+- `frontend/src/components/Header.tsx`
+- `frontend/src/components/Sidebar.tsx`
+- `frontend/src/components/CustomerForm.tsx`
+- `frontend/src/components/AccountCard.tsx`
+- `frontend/src/components/DashboardCard.tsx`
+- `frontend/src/lib/api.ts`
+- `frontend/src/lib/auth.ts`
+- `frontend/src/app/login/page.tsx`
+- `frontend/src/app/dashboard/page.tsx`
+- `frontend/src/app/customers/page.tsx`
+- `frontend/src/app/accounts/page.tsx`
+
+### Phase 11 outcome
+The frontend is now scaffolded with core banking pages and ready to consume the backend API through token-based login and protected workflows.
+
+---
+
+## Next step after approval
+Once you say **continue**, I will move to Phase 12 and add testing coverage, edge-case checks, and example data for both frontend and backend.
+
+> Please review the frontend implementation and say `continue` when ready.

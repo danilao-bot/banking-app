@@ -12,6 +12,9 @@ class AuthService:
     def get_user_by_email(self, email: str):
         return self.db.query(User).filter(User.email == email).first()
 
+    def get_user_by_id(self, user_id: int):
+        return self.db.query(User).filter(User.user_id == user_id).first()
+
     def register(self, email: str, password: str, role: str = 'CUSTOMER'):
         user = User(email=email, password_hash=hash_password(password), role=role)
         self.db.add(user)

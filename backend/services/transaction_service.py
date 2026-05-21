@@ -9,6 +9,8 @@ class TransactionService:
         self.db = db
 
     def deposit(self, account_id: int, amount: float, description: str = None, reference: str = None):
+        if amount <= 0:
+            return None
         account = self.db.query(Account).filter(Account.account_id == account_id).first()
         if not account or account.status != 'ACTIVE':
             return None
@@ -27,6 +29,8 @@ class TransactionService:
         return transaction
 
     def withdraw(self, account_id: int, amount: float, description: str = None, reference: str = None):
+        if amount <= 0:
+            return None
         account = self.db.query(Account).filter(Account.account_id == account_id).first()
         if not account or account.status != 'ACTIVE' or account.balance < amount:
             return None
@@ -45,6 +49,9 @@ class TransactionService:
         return transaction
 
     def transfer(self, source_account_id: int, target_account_id: int, amount: float, description: str = None, reference: str = None):
+        if source_account_id == target_account_id:
+            return None
+
         source = self.db.query(Account).filter(Account.account_id == source_account_id).first()
         target = self.db.query(Account).filter(Account.account_id == target_account_id).first()
         if not source or not target or source.status != 'ACTIVE' or target.status != 'ACTIVE':
@@ -55,7 +62,7 @@ class TransactionService:
         source.balance -= amount
         target.balance += amount
 
-        transaction = Transaction(
+        source_transaction = Transaction(
             account_id=source.account_id,
             transaction_type='TRANSFER',
             amount=amount,
@@ -64,10 +71,25 @@ class TransactionService:
             related_account_id=target.account_id,
             status='COMPLETED',
         )
-        self.db.add(transaction)
+
+        target_transaction = Transaction(
+            account_id=target.account_id,
+            transaction_type='TRANSFER',
+            amount=amount,
+            description=f'Received transfer from account {source.account_number}',
+            reference=reference,
+            related_account_id=source.account_id,
+            status='COMPLETED',
+        )
+
+        self.db.add_all([source_transaction, target_transaction])
         self.db.commit()
-        self.db.refresh(transaction)
-        return transaction
+        self.db.refresh(source_transaction)
+        self.db.refresh(target_transaction)
+        return source_transaction
 
     def get_history(self, account_id: int):
         return self.db.query(Transaction).filter(Transaction.account_id == account_id).order_by(Transaction.transaction_date.desc()).all()
+
+    def get_transaction(self, transaction_id: int):
+        return self.db.query(Transaction).filter(Transaction.transaction_id == transaction_id).first()

@@ -4,7 +4,6 @@ from datetime import date
 
 
 class CustomerCreate(BaseModel):
-    user_id: int
     first_name: str
     last_name: str
     phone: Optional[str] = None

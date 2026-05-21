@@ -18,3 +18,4 @@ class Customer(Base):
 
     user = relationship('User', backref='customer', uselist=False)
     accounts = relationship('Account', back_populates='customer')
+    loans = relationship('Loan', back_populates='customer')
