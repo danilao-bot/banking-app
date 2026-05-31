@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Numeric, DateTime, func, CheckConstraint
+from sqlalchemy import Column, Integer, String, ForeignKey, Numeric, DateTime, func, CheckConstraint, Identity
 from sqlalchemy.orm import relationship
 from database.base import Base
 
@@ -6,7 +6,7 @@ from database.base import Base
 class Account(Base):
     __tablename__ = 'accounts'
 
-    account_id = Column(Integer, primary_key=True, index=True)
+    account_id = Column(Integer, Identity(), primary_key=True)
     customer_id = Column(Integer, ForeignKey('customers.customer_id'), nullable=False)
     account_type = Column(String(50), nullable=False)
     account_number = Column(String(20), unique=True, nullable=False)
@@ -22,4 +22,4 @@ class Account(Base):
     )
 
     customer = relationship('Customer', back_populates='accounts')
-    transactions = relationship('Transaction', back_populates='account')
+    transactions = relationship('Transaction', back_populates='account', foreign_keys='Transaction.account_id')

@@ -15,13 +15,13 @@ type AccountFormProps = {
 };
 
 const accountTypes = ['SAVINGS', 'CURRENT', 'FIXED'];
-const currencies = ['USD', 'EUR', 'GBP'];
+const currencies = ['NGN', 'USD', 'EUR', 'GBP'];
 
 export default function AccountForm({ onCreated }: AccountFormProps) {
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [customerId, setCustomerId] = useState<number | ''>('');
   const [accountType, setAccountType] = useState('SAVINGS');
-  const [currency, setCurrency] = useState('USD');
+  const [currency, setCurrency] = useState('NGN');
   const [message, setMessage] = useState('Loading customers...');
   const [submitting, setSubmitting] = useState(false);
 
@@ -79,52 +79,54 @@ export default function AccountForm({ onCreated }: AccountFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-      <h2 className="text-xl font-semibold text-slate-900">Create new account</h2>
+    <form onSubmit={handleSubmit} className="glass-panel space-y-5 rounded-3xl p-6 border border-white/5">
+      <h2 className="text-lg font-bold text-white">Create New Account</h2>
       <div>
-        <label className="block text-sm font-medium text-slate-700">Customer</label>
-        <select
-          value={customerId}
-          onChange={(e) => setCustomerId(Number(e.target.value))}
-          className="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 p-3 text-sm"
-        >
-          {customers.length === 0 ? (
-            <option value="">No customers available</option>
-          ) : (
-            customers.map((customer) => (
-              <option key={customer.customer_id} value={customer.customer_id}>
-                {customer.first_name} {customer.last_name}
-              </option>
-            ))
-          )}
-        </select>
+        <label className="block text-xs font-semibold text-slate-400">
+          Customer
+          <select
+            value={customerId}
+            onChange={(e) => setCustomerId(Number(e.target.value))}
+            className="input-glass mt-2 w-full rounded-2xl p-3 text-sm"
+          >
+            {customers.length === 0 ? (
+              <option value="" className="bg-slate-900 text-white">No customers available</option>
+            ) : (
+              customers.map((customer) => (
+                <option key={customer.customer_id} value={customer.customer_id} className="bg-slate-900 text-white">
+                  {customer.first_name} {customer.last_name}
+                </option>
+              ))
+            )}
+          </select>
+        </label>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
-        <label className="block text-sm font-medium text-slate-700">
+        <label className="block text-xs font-semibold text-slate-400">
           Account type
           <select
             value={accountType}
             onChange={(e) => setAccountType(e.target.value)}
-            className="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 p-3 text-sm"
+            className="input-glass mt-2 w-full rounded-2xl p-3 text-sm"
           >
             {accountTypes.map((type) => (
-              <option key={type} value={type}>
+              <option key={type} value={type} className="bg-slate-900 text-white">
                 {type}
               </option>
             ))}
           </select>
         </label>
 
-        <label className="block text-sm font-medium text-slate-700">
+        <label className="block text-xs font-semibold text-slate-400">
           Currency
           <select
             value={currency}
             onChange={(e) => setCurrency(e.target.value)}
-            className="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 p-3 text-sm"
+            className="input-glass mt-2 w-full rounded-2xl p-3 text-sm"
           >
             {currencies.map((currencyOption) => (
-              <option key={currencyOption} value={currencyOption}>
+              <option key={currencyOption} value={currencyOption} className="bg-slate-900 text-white">
                 {currencyOption}
               </option>
             ))}
@@ -135,12 +137,12 @@ export default function AccountForm({ onCreated }: AccountFormProps) {
       <button
         type="submit"
         disabled={submitting || !customerId}
-        className="inline-flex w-full items-center justify-center rounded-2xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-70"
+        className="glow-btn inline-flex w-full items-center justify-center rounded-2xl px-5 py-3 text-sm font-semibold transition"
       >
-        {submitting ? 'Creating...' : 'Create account'}
+        {submitting ? 'Creating...' : 'Create Account'}
       </button>
 
-      <p className="text-sm text-slate-500">{message}</p>
+      {message ? <p className="text-xs text-slate-400 mt-2">{message}</p> : null}
     </form>
   );
 }

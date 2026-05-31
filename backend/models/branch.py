@@ -1,11 +1,11 @@
-from sqlalchemy import Column, Integer, String, DateTime, func
+from sqlalchemy import Column, Integer, String, DateTime, func, Identity
 from database.base import Base
 
 
 class Branch(Base):
     __tablename__ = 'branches'
 
-    branch_id = Column(Integer, primary_key=True, index=True)
+    branch_id = Column(Integer, Identity(), primary_key=True)
     name = Column(String(150), nullable=False)
     address = Column(String(400), nullable=False)
     city = Column(String(100), nullable=False)

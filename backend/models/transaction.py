@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Numeric, ForeignKey, DateTime, func, CheckConstraint
+from sqlalchemy import Column, Integer, String, Numeric, ForeignKey, DateTime, func, CheckConstraint, Identity
 from sqlalchemy.orm import relationship
 from database.base import Base
 
@@ -6,7 +6,7 @@ from database.base import Base
 class Transaction(Base):
     __tablename__ = 'transactions'
 
-    transaction_id = Column(Integer, primary_key=True, index=True)
+    transaction_id = Column(Integer, Identity(), primary_key=True)
     account_id = Column(Integer, ForeignKey('accounts.account_id'), nullable=False)
     transaction_type = Column(String(50), nullable=False)
     amount = Column(Numeric(18, 2), nullable=False)

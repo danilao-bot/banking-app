@@ -8,7 +8,9 @@ class CardService:
         self.db = db
 
     def issue_card(self, customer_id: int, account_id: int, card_type: str, expiry_date: date):
+        import random
         card_number = self._generate_card_number(customer_id)
+        cvv_val = f"{random.randint(100, 999)}"
         card = Card(
             customer_id=customer_id,
             account_id=account_id,
@@ -16,6 +18,7 @@ class CardService:
             card_type=card_type.upper(),
             expiry_date=expiry_date,
             status='ACTIVE',
+            cvv=cvv_val,
         )
         self.db.add(card)
         self.db.commit()
@@ -24,7 +27,10 @@ class CardService:
 
     def _generate_card_number(self, customer_id: int) -> str:
         count = self.db.query(Card).count() + 1
-        return f"CARD{customer_id:06d}{count:04d}"
+        return f"506188{customer_id:06d}{count:04d}"
+
+    def get_customer_cards(self, customer_id: int):
+        return self.db.query(Card).filter(Card.customer_id == customer_id).all()
 
     def list_cards(self):
         return self.db.query(Card).all()

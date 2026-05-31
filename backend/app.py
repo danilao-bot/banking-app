@@ -24,7 +24,13 @@ app.add_middleware(
     allow_headers=['*'],
 )
 
-Base.metadata.create_all(bind=engine)
+try:
+    Base.metadata.create_all(bind=engine)
+except Exception as e:
+    # Oracle may raise ORA-01408 when indexes already exist on PK columns.
+    # This is non-fatal — tables are already created (e.g. via seed.py).
+    print(f"NOTE: create_all encountered a non-fatal error: {e}")
+    print("Continuing startup — tables likely already exist.")
 
 app.include_router(auth_router, prefix='/api/auth', tags=['auth'])
 app.include_router(customer_router, prefix='/api/customers', tags=['customers'])
@@ -43,6 +49,6 @@ def root() -> dict:
     return {'message': 'Banking API Running'}
 
 
-@app.get('/health')
+@app.get('/api/health')
 def health() -> dict:
     return {'status': 'healthy'}

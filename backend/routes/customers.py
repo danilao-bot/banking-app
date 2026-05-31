@@ -30,6 +30,13 @@ def list_customers(current_user=Depends(get_current_user), db: Session = Depends
     return service.list_customers()
 
 
+@router.get('/me', response_model=CustomerResponse)
+def get_my_profile(current_user=Depends(get_current_user), db: Session = Depends(get_db)):
+    if not current_user.customer:
+        raise HTTPException(status_code=404, detail='Customer profile not found')
+    return current_user.customer
+
+
 @router.get('/{customer_id}', response_model=CustomerResponse)
 def get_customer(customer_id: int, current_user=Depends(get_current_user), db: Session = Depends(get_db)):
     service = CustomerService(db)

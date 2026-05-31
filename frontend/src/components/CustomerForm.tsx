@@ -37,30 +37,54 @@ export default function CustomerForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-      <h2 className="text-lg font-semibold text-slate-900">New Customer</h2>
+    <form onSubmit={handleSubmit} className="glass-panel space-y-4 rounded-3xl p-6 border border-white/5">
+      <h2 className="text-lg font-bold text-white">Create New Customer Profile</h2>
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="block">
-          <span className="text-sm text-slate-600">First name</span>
-          <input value={firstName} onChange={(e) => setFirstName(e.target.value)} required className="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 p-3 text-sm" />
+          <span className="text-xs font-semibold text-slate-400">First Name</span>
+          <input 
+            value={firstName} 
+            onChange={(e) => setFirstName(e.target.value)} 
+            required 
+            className="input-glass mt-2 w-full rounded-2xl p-3 text-sm" 
+          />
         </label>
         <label className="block">
-          <span className="text-sm text-slate-600">Last name</span>
-          <input value={lastName} onChange={(e) => setLastName(e.target.value)} required className="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 p-3 text-sm" />
+          <span className="text-xs font-semibold text-slate-400">Last Name</span>
+          <input 
+            value={lastName} 
+            onChange={(e) => setLastName(e.target.value)} 
+            required 
+            className="input-glass mt-2 w-full rounded-2xl p-3 text-sm" 
+          />
         </label>
       </div>
       <label className="block">
-        <span className="text-sm text-slate-600">Phone</span>
-        <input value={phone} onChange={(e) => setPhone(e.target.value)} className="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 p-3 text-sm" />
+        <span className="text-xs font-semibold text-slate-400">Phone Number</span>
+        <input 
+          value={phone} 
+          onChange={(e) => setPhone(e.target.value)} 
+          className="input-glass mt-2 w-full rounded-2xl p-3 text-sm" 
+          placeholder="+1 (555) 000-0000"
+        />
       </label>
       <label className="block">
-        <span className="text-sm text-slate-600">Address</span>
-        <input value={address} onChange={(e) => setAddress(e.target.value)} className="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 p-3 text-sm" />
+        <span className="text-xs font-semibold text-slate-400">Residential Address</span>
+        <input 
+          value={address} 
+          onChange={(e) => setAddress(e.target.value)} 
+          className="input-glass mt-2 w-full rounded-2xl p-3 text-sm" 
+          placeholder="123 Financial Way, Wealth City"
+        />
       </label>
-      <button type="submit" className="inline-flex items-center justify-center rounded-2xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-700">
-        Create Customer
+      <button 
+        type="submit" 
+        className="glow-btn inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-semibold transition"
+      >
+        Onboard Customer
       </button>
-      <p className="text-sm text-slate-500">{message}</p>
+      {message ? <p className="text-xs text-slate-400 mt-2">{message}</p> : null}
     </form>
   );
 }
+

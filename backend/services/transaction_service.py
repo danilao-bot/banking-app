@@ -1,3 +1,4 @@
+from decimal import Decimal
 from sqlalchemy.orm import Session
 from models.account import Account
 from models.transaction import Transaction
@@ -14,7 +15,7 @@ class TransactionService:
         account = self.db.query(Account).filter(Account.account_id == account_id).first()
         if not account or account.status != 'ACTIVE':
             return None
-        account.balance += amount
+        account.balance += Decimal(str(amount))
         transaction = Transaction(
             account_id=account.account_id,
             transaction_type='DEPOSIT',
@@ -34,7 +35,7 @@ class TransactionService:
         account = self.db.query(Account).filter(Account.account_id == account_id).first()
         if not account or account.status != 'ACTIVE' or account.balance < amount:
             return None
-        account.balance -= amount
+        account.balance -= Decimal(str(amount))
         transaction = Transaction(
             account_id=account.account_id,
             transaction_type='WITHDRAWAL',
@@ -59,8 +60,8 @@ class TransactionService:
         if source.balance < amount:
             return None
 
-        source.balance -= amount
-        target.balance += amount
+        source.balance -= Decimal(str(amount))
+        target.balance += Decimal(str(amount))
 
         source_transaction = Transaction(
             account_id=source.account_id,

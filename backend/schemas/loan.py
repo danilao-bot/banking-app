@@ -3,7 +3,7 @@ from typing import Optional
 
 
 class LoanCreate(BaseModel):
-    customer_id: int
+    customer_id: Optional[int] = None
     amount: float
     interest_rate: float
     term_months: int

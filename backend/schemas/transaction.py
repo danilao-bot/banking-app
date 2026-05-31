@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from typing import Optional
+from datetime import datetime
 
 
 class TransactionCreate(BaseModel):
@@ -19,7 +20,7 @@ class TransactionResponse(BaseModel):
     transaction_type: str
     amount: float
     currency: str
-    transaction_date: str
+    transaction_date: datetime
     description: Optional[str]
     reference: Optional[str]
     related_account_id: Optional[int]
@@ -27,3 +28,5 @@ class TransactionResponse(BaseModel):
 
     class Config:
         orm_mode = True
+        from_attributes = True
+

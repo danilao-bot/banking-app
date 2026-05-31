@@ -9,7 +9,9 @@ class AccountService:
         self.db = db
 
     def generate_account_number(self, customer_id: int) -> str:
-        return f"ACCT{customer_id:06d}{self.db.query(Account).count() + 1:04d}"
+        # Generate 10-digit NUBAN style: "90" + 5 digits customer_id + 3 digits count/index
+        count = self.db.query(Account).filter(Account.customer_id == customer_id).count() + 1
+        return f"90{customer_id:05d}{count:03d}"
 
     def create_account(self, customer_id: int, account_type: str, currency: str = 'USD'):
         if not validate_account_type(account_type):
@@ -32,6 +34,12 @@ class AccountService:
 
     def get_account(self, account_id: int):
         return self.db.query(Account).filter(Account.account_id == account_id).first()
+
+    def get_account_by_number(self, account_number: str):
+        return self.db.query(Account).filter(Account.account_number == account_number).first()
+
+    def get_customer_accounts(self, customer_id: int):
+        return self.db.query(Account).filter(Account.customer_id == customer_id).all()
 
     def list_accounts(self):
         return self.db.query(Account).all()

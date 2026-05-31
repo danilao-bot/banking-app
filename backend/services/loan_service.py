@@ -29,5 +29,8 @@ class LoanService:
         self.db.refresh(loan)
         return loan
 
+    def get_customer_loans(self, customer_id: int):
+        return self.db.query(Loan).filter(Loan.customer_id == customer_id).all()
+
     def list_loans(self):
         return self.db.query(Loan).all()

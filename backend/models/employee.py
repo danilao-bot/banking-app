@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, func
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, func, Identity
 from sqlalchemy.orm import relationship
 from database.base import Base
 
@@ -6,7 +6,7 @@ from database.base import Base
 class Employee(Base):
     __tablename__ = 'employees'
 
-    employee_id = Column(Integer, primary_key=True, index=True)
+    employee_id = Column(Integer, Identity(), primary_key=True)
     user_id = Column(Integer, ForeignKey('users.user_id'), nullable=False, unique=True)
     branch_id = Column(Integer, ForeignKey('branches.branch_id'), nullable=True)
     position = Column(String(100), nullable=False, default='STAFF')

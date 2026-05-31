@@ -41,43 +41,50 @@ export default function AccountsPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900">
-      <Header />
-      <div className="flex">
-        <Sidebar />
-        <main className="flex-1 p-8">
-          <div className="mb-8">
-            <h1 className="text-3xl font-semibold">Account Management</h1>
-            <p className="mt-2 text-slate-600">Review active accounts and open new ones with confidence.</p>
-          </div>
+    <div className="relative min-h-screen overflow-hidden bg-slate-950 text-slate-100 selection:bg-indigo-500/30 selection:text-indigo-200">
+      {/* Background Pulse Glows */}
+      <div className="glow-circle bg-indigo-500 w-[40vw] h-[40vw] left-[-10vw] top-[-10vw]" />
+      <div className="glow-circle bg-purple-500 w-[35vw] h-[35vw] right-[-5vw] top-[10vw]" />
+      <div className="glow-circle bg-cyan-500 w-[30vw] h-[30vw] left-[20vw] bottom-[-5vw]" />
 
-          <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-            <section className="space-y-6">
-              <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-                <h2 className="text-xl font-semibold">Account list</h2>
-                {message ? (
-                  <p className="mt-4 text-sm text-slate-500">{message}</p>
-                ) : accounts.length === 0 ? (
-                  <p className="mt-4 text-sm text-slate-500">No accounts available yet.</p>
-                ) : (
-                  <div className="grid gap-4">
-                    {accounts.map((account) => (
-                      <AccountCard
-                        key={account.account_id}
-                        accountNumber={account.account_number}
-                        accountType={account.account_type}
-                        balance={account.balance}
-                        currency={account.currency}
-                      />
-                    ))}
-                  </div>
-                )}
-              </div>
-            </section>
+      <div className="relative z-10 min-h-screen flex flex-col">
+        <Header />
+        <div className="flex flex-1">
+          <Sidebar />
+          <main className="flex-1 p-8">
+            <div className="mb-8">
+              <h1 className="text-3xl font-extrabold text-white tracking-tight">Account Management</h1>
+              <p className="mt-2 text-slate-400 text-sm">Review active accounts and open new ones with confidence.</p>
+            </div>
 
-            <AccountForm onCreated={loadAccounts} />
-          </div>
-        </main>
+            <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+              <section className="space-y-6">
+                <div className="glass-panel rounded-3xl p-6 border border-white/5">
+                  <h2 className="text-xl font-bold text-white tracking-tight mb-4">Account list</h2>
+                  {message ? (
+                    <p className="text-sm text-slate-500">{message}</p>
+                  ) : accounts.length === 0 ? (
+                    <p className="text-sm text-slate-500">No accounts available yet.</p>
+                  ) : (
+                    <div className="grid gap-4">
+                      {accounts.map((account) => (
+                        <AccountCard
+                          key={account.account_id}
+                          accountNumber={account.account_number}
+                          accountType={account.account_type}
+                          balance={account.balance}
+                          currency={account.currency}
+                        />
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </section>
+
+              <AccountForm onCreated={loadAccounts} />
+            </div>
+          </main>
+        </div>
       </div>
     </div>
   );

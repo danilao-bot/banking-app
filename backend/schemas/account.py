@@ -3,7 +3,7 @@ from typing import Optional
 
 
 class AccountCreate(BaseModel):
-    customer_id: int
+    customer_id: Optional[int] = None
     account_type: str
     currency: Optional[str] = 'USD'
 
