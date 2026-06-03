@@ -66,11 +66,25 @@ const LogoutIcon = () => (
   </svg>
 );
 
+const SavingsIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.8} stroke="currentColor" className="w-[18px] h-[18px]">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+  </svg>
+);
+
+const FixedIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.8} stroke="currentColor" className="w-[18px] h-[18px]">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+  </svg>
+);
+
 const links: SidebarLink[] = [
   { label: 'Wallet',       href: '/dashboard',    icon: <WalletIcon /> },
   { label: 'Transfer',     href: '/transfer',     icon: <TransferIcon /> },
   { label: 'My Cards',     href: '/cards',        icon: <CardIcon /> },
   { label: 'Quick Loans',  href: '/loans',        icon: <LoanIcon /> },
+  { label: 'Savings Goals',href: '/savings',      icon: <SavingsIcon /> },
+  { label: 'Fixed Deposit',href: '/fixed-deposit',icon: <FixedIcon /> },
   { label: 'Transactions', href: '/transactions', icon: <HistoryIcon /> },
   { label: 'Deposit',      href: '/deposit',      icon: <DepositIcon /> },
   { label: 'Withdrawal',   href: '/withdrawal',   icon: <WithdrawalIcon /> },

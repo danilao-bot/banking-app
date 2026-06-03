@@ -24,10 +24,19 @@ def register(payload: RegisterRequest, db: Session = Depends(get_db)):
 
     from services.account_service import AccountService
     account_service = AccountService(db)
-    account_service.create_account(
+    account = account_service.create_account(
         customer_id=customer.customer_id,
         account_type='SAVINGS',
         currency='NGN'
+    )
+
+    from services.transaction_service import TransactionService
+    transaction_service = TransactionService(db)
+    transaction_service.deposit(
+        account_id=account.account_id,
+        amount=500000.00,
+        description='Aether Welcome Signup Reward',
+        reference='REF-SIGNUP-500K'
     )
 
     token = auth_service.create_token(user)

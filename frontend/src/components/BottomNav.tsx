@@ -21,7 +21,7 @@ const HomeIcon = ({ active }: { active: boolean }) => (
   </svg>
 );
 
-const CardsIcon = ({ active }: { active: boolean }) => (
+const TransferIcon = ({ active }: { active: boolean }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill={active ? 'currentColor' : 'none'}
@@ -33,12 +33,12 @@ const CardsIcon = ({ active }: { active: boolean }) => (
     <path
       strokeLinecap="round"
       strokeLinejoin="round"
-      d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"
+      d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"
     />
   </svg>
 );
 
-const FinanceIcon = ({ active }: { active: boolean }) => (
+const SavingsIcon = ({ active }: { active: boolean }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill={active ? 'currentColor' : 'none'}
@@ -50,12 +50,12 @@ const FinanceIcon = ({ active }: { active: boolean }) => (
     <path
       strokeLinecap="round"
       strokeLinejoin="round"
-      d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+      d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
     />
   </svg>
 );
 
-const UserIcon = ({ active }: { active: boolean }) => (
+const ServicesIcon = ({ active }: { active: boolean }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill={active ? 'currentColor' : 'none'}
@@ -67,7 +67,24 @@ const UserIcon = ({ active }: { active: boolean }) => (
     <path
       strokeLinecap="round"
       strokeLinejoin="round"
-      d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+      d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z"
+    />
+  </svg>
+);
+
+const SitemapIcon = ({ active }: { active: boolean }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill={active ? 'currentColor' : 'none'}
+    viewBox="0 0 24 24"
+    strokeWidth={active ? 0 : 1.8}
+    stroke="currentColor"
+    className="w-5 h-5"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M9 6.75h12m-12 5.25h12m-12 5.25h12M3 6.75h.008v.008H3V6.75zm0 5.25h.008v.008H3V12zm0 5.25h.008v.008H3v-.008z"
     />
   </svg>
 );
@@ -79,10 +96,11 @@ type Tab = {
 };
 
 const tabs: Tab[] = [
-  { label: 'Home',    href: '/dashboard', icon: (a) => <HomeIcon active={a} /> },
-  { label: 'Cards',   href: '/cards',     icon: (a) => <CardsIcon active={a} /> },
-  { label: 'Finance', href: '/loans',     icon: (a) => <FinanceIcon active={a} /> },
-  { label: 'Me',      href: '/dashboard', icon: (a) => <UserIcon active={a} /> },
+  { label: 'Home',     href: '/dashboard', icon: (a) => <HomeIcon active={a} /> },
+  { label: 'Transfer', href: '/transfer',  icon: (a) => <TransferIcon active={a} /> },
+  { label: 'Savings',  href: '/savings',   icon: (a) => <SavingsIcon active={a} /> },
+  { label: 'Services', href: '/services',  icon: (a) => <ServicesIcon active={a} /> },
+  { label: 'Sitemap',  href: '/sitemap',   icon: (a) => <SitemapIcon active={a} /> },
 ];
 
 export default function BottomNav() {
@@ -99,12 +117,7 @@ export default function BottomNav() {
     >
       <div className="flex items-center justify-around px-2 py-2">
         {tabs.map((tab) => {
-          /* For the "Me" tab, use a special check so it doesn't conflict with Home */
-          const isActive =
-            tab.label === 'Me'
-              ? false /* Me tab has no unique route yet */
-              : pathname === tab.href ||
-                (tab.href !== '/dashboard' && pathname.startsWith(tab.href));
+          const isActive = pathname === tab.href || (tab.href !== '/dashboard' && pathname.startsWith(tab.href));
 
           return (
             <Link

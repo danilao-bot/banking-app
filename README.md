@@ -126,7 +126,9 @@ frontend/
  │    │    ├── accounts/     # Lists active bank accounts and opens new ones.
  │    │    ├── cards/        # Virtual debit cards page with dynamic flip animations and CVV hiding.
  │    │    ├── loans/        # Interactive credit application status boards.
- │    │    ├── services/     # Utilities, shortcuts, and supplementary features dashboard.
+ │    │    ├── savings/      # Savings Goals planner with visual target progress tracking.
+ │    │    ├── fixed-deposit/# Term lock investments with yield calculators.
+ │    │    ├── services/     # Bill payments (Airtime, Data, Electricity, TV, Betting, Exam Cards, Broadband).
  │    │    ├── transactions/ # Transaction logs with date pickers, type filters, and text search.
  │    │    ├── deposit/      # Simulated instant funding deposits.
  │    │    ├── withdrawal/   # Simulated cash withdrawals.

@@ -253,6 +253,31 @@ export default function DashboardPage() {
                   </div>
                 </div>
 
+                {/* ───── Wealth & Savings Section ───── */}
+                <div className="space-y-3">
+                  <h3 className="text-xs font-bold uppercase tracking-widest text-slate-500">Wealth & Savings</h3>
+                  <div className="grid grid-cols-2 gap-3">
+                    {/* Savings Goals */}
+                    <Link href="/savings" className="glass-panel rounded-[2rem] p-5 flex flex-col items-center gap-2.5 border border-white/5 hover:border-purple-500/20 hover:bg-purple-950/10 transition group">
+                      <div className="w-12 h-12 rounded-2xl bg-purple-500/10 flex items-center justify-center group-hover:bg-purple-500/20 text-purple-400 transition duration-300">
+                        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      </div>
+                      <span className="text-[11px] font-bold text-slate-200 group-hover:text-white transition">Savings Goals</span>
+                    </Link>
+                    {/* Fixed Deposit */}
+                    <Link href="/fixed-deposit" className="glass-panel rounded-[2rem] p-5 flex flex-col items-center gap-2.5 border border-white/5 hover:border-emerald-500/20 hover:bg-emerald-950/10 transition group">
+                      <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 flex items-center justify-center group-hover:bg-emerald-500/20 text-emerald-400 transition duration-300">
+                        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                        </svg>
+                      </div>
+                      <span className="text-[11px] font-bold text-slate-200 group-hover:text-white transition">Fixed Deposit</span>
+                    </Link>
+                  </div>
+                </div>
+
                 {/* ───── 4. Services Grid (Solid premium icons) ───── */}
                 <div className="space-y-3">
                   <h3 className="text-xs font-bold uppercase tracking-widest text-slate-500">Services</h3>
