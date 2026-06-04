@@ -63,6 +63,30 @@ def send_money(
     txn = service.transfer(source_account.account_id, target_account.account_id, float(amount), description)
     if not txn:
         raise HTTPException(status_code=400, detail='Transfer failed. Check your balance and try again.')
+        
+    from services.audit_service import AuditService
+    from services.notification_service import NotificationService
+    
+    AuditService(db).log(
+        user_id=current_user.user_id,
+        action='TRANSFER',
+        entity='transaction',
+        entity_id=txn.transaction_id,
+        description=f"Transferred ₦{float(amount):.2f} to account {target_account.account_number} ({target_account.customer.first_name} {target_account.customer.last_name})"
+    )
+    
+    NotificationService(db).create_notification(
+        user_id=current_user.user_id,
+        title='Transfer Sent',
+        message=f"You have successfully transferred ₦{float(amount):.2f} to {target_account.customer.first_name} {target_account.customer.last_name} ({target_account.account_number})."
+    )
+    
+    NotificationService(db).create_notification(
+        user_id=target_account.customer.user_id,
+        title='Transfer Received',
+        message=f"Your account {target_account.account_number} has been credited with ₦{float(amount):.2f} from {current_user.customer.first_name} {current_user.customer.last_name}."
+    )
+    
     return txn
 
 
@@ -85,6 +109,27 @@ def deposit(payload: TransactionCreate, current_user=Depends(get_current_user), 
     transaction = service.deposit(payload.account_id, payload.amount, payload.description, payload.reference)
     if not transaction:
         raise HTTPException(status_code=400, detail='Deposit failed. Ensure the account exists and the amount is positive.')
+        
+    from services.audit_service import AuditService
+    from services.notification_service import NotificationService
+    
+    acc = db.query(Account).filter(Account.account_id == payload.account_id).first()
+    notify_user_id = acc.customer.user_id if (acc and acc.customer) else current_user.user_id
+    
+    AuditService(db).log(
+        user_id=current_user.user_id,
+        action='DEPOSIT',
+        entity='transaction',
+        entity_id=transaction.transaction_id,
+        description=f"Deposited ₦{payload.amount:.2f} into account {acc.account_number if acc else payload.account_id}"
+    )
+    
+    NotificationService(db).create_notification(
+        user_id=notify_user_id,
+        title='Deposit Successful',
+        message=f"Your account {acc.account_number if acc else ''} has been credited with ₦{payload.amount:.2f}."
+    )
+    
     return transaction
 
 
@@ -95,6 +140,27 @@ def withdraw(payload: TransactionCreate, current_user=Depends(get_current_user),
     transaction = service.withdraw(payload.account_id, payload.amount, payload.description, payload.reference)
     if not transaction:
         raise HTTPException(status_code=400, detail='Withdrawal failed. Check balance and ensure the amount is positive.')
+        
+    from services.audit_service import AuditService
+    from services.notification_service import NotificationService
+    
+    acc = db.query(Account).filter(Account.account_id == payload.account_id).first()
+    notify_user_id = acc.customer.user_id if (acc and acc.customer) else current_user.user_id
+    
+    AuditService(db).log(
+        user_id=current_user.user_id,
+        action='WITHDRAWAL',
+        entity='transaction',
+        entity_id=transaction.transaction_id,
+        description=f"Withdrew ₦{payload.amount:.2f} from account {acc.account_number if acc else payload.account_id}"
+    )
+    
+    NotificationService(db).create_notification(
+        user_id=notify_user_id,
+        title='Withdrawal Successful',
+        message=f"Your account {acc.account_number if acc else ''} has been debited with ₦{payload.amount:.2f}."
+    )
+    
     return transaction
 
 
@@ -105,6 +171,35 @@ def transfer(payload: TransferCreate, current_user=Depends(get_current_user), db
     transaction = service.transfer(payload.account_id, payload.target_account_id, payload.amount, payload.description, payload.reference)
     if not transaction:
         raise HTTPException(status_code=400, detail='Transfer failed. Verify both accounts are active and you have sufficient funds.')
+        
+    from services.audit_service import AuditService
+    from services.notification_service import NotificationService
+    
+    src_acc = db.query(Account).filter(Account.account_id == payload.account_id).first()
+    tgt_acc = db.query(Account).filter(Account.account_id == payload.target_account_id).first()
+    
+    AuditService(db).log(
+        user_id=current_user.user_id,
+        action='TRANSFER',
+        entity='transaction',
+        entity_id=transaction.transaction_id,
+        description=f"Transferred ₦{payload.amount:.2f} from account {src_acc.account_number if src_acc else payload.account_id} to account {tgt_acc.account_number if tgt_acc else payload.target_account_id}"
+    )
+    
+    if src_acc and src_acc.customer:
+        NotificationService(db).create_notification(
+            user_id=src_acc.customer.user_id,
+            title='Transfer Sent',
+            message=f"You have successfully transferred ₦{payload.amount:.2f} to {tgt_acc.customer.first_name + ' ' + tgt_acc.customer.last_name if (tgt_acc and tgt_acc.customer) else 'account ' + str(payload.target_account_id)}."
+        )
+        
+    if tgt_acc and tgt_acc.customer:
+        NotificationService(db).create_notification(
+            user_id=tgt_acc.customer.user_id,
+            title='Transfer Received',
+            message=f"Your account {tgt_acc.account_number} has been credited with ₦{payload.amount:.2f} from {src_acc.customer.first_name + ' ' + src_acc.customer.last_name if (src_acc and src_acc.customer) else 'account ' + str(payload.account_id)}."
+        )
+        
     return transaction
 
 

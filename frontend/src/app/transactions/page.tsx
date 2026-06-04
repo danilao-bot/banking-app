@@ -188,7 +188,7 @@ export default function TransactionsPage() {
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden relative z-10">
-        <Header title="AETHER" />
+        <Header title="LUCE" />
 
         <main className="flex-1 overflow-auto pb-24 md:pb-6 p-4 sm:p-8">
           <div className="mb-6 max-w-5xl mx-auto">

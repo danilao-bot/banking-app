@@ -162,7 +162,7 @@ export default function CardsPage() {
                           <div className="flex justify-between items-start mb-4">
                             <div>
                               <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-purple-400">{card.card_type} CARD</span>
-                              <h2 className="text-sm font-black tracking-widest text-white mt-1">AETHER WALLET</h2>
+                              <h2 className="text-sm font-black tracking-widest text-white mt-1">LUCE BANK</h2>
                             </div>
                             <span className="text-xs font-black uppercase tracking-wider text-slate-400">
                               {getCardBrandIcon(card.card_number)}

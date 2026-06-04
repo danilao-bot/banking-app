@@ -48,7 +48,8 @@ def seed_database():
             last_name="Okonkwo",
             phone="08012345678",
             address="12 Palm Avenue, Victoria Island, Lagos",
-            date_of_birth=date(1995, 8, 15)
+            date_of_birth=date(1995, 8, 15),
+            gender="FEMALE"
         )
         db.add(customer1)
         db.flush()
@@ -88,7 +89,8 @@ def seed_database():
             last_name="Bakare",
             phone="08087654321",
             address="45 Kuda Bypass, Wuse II, Abuja",
-            date_of_birth=date(1992, 4, 20)
+            date_of_birth=date(1992, 4, 20),
+            gender="MALE"
         )
         db.add(customer2)
         db.flush()

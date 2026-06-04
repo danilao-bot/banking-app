@@ -24,7 +24,48 @@ type Customer = {
   last_name: string;
   phone: string;
   address: string;
+  gender?: string;
 };
+
+const MaleAvatar = () => (
+  <svg viewBox="0 0 100 100" className="w-12 h-12 rounded-full border border-white/10 shrink-0 shadow-lg shadow-purple-500/20">
+    <rect width="100" height="100" fill="url(#male-grad)" />
+    <circle cx="50" cy="40" r="18" fill="#ffdbb5" />
+    <path d="M30 40c0-12 8-22 20-22s20 10 20 22c0 3-2 5-5 3S55 26 50 26s-10 8-15 15c-3 2-5 0-5-3z" fill="#2d1d0f" />
+    <path d="M22 88c0-10 13-18 28-18s28 8 28 18v12H22V88z" fill="#312e81" />
+    <path d="M50 70l-8 12h16L50 70z" fill="#ffdbb5" />
+    <defs>
+      <linearGradient id="male-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#4f46e5" stopOpacity="0.8" />
+        <stop offset="100%" stopColor="#312e81" stopOpacity="0.8" />
+      </linearGradient>
+    </defs>
+  </svg>
+);
+
+const FemaleAvatar = () => (
+  <svg viewBox="0 0 100 100" className="w-12 h-12 rounded-full border border-white/10 shrink-0 shadow-lg shadow-purple-500/20">
+    <rect width="100" height="100" fill="url(#female-grad)" />
+    <circle cx="50" cy="46" r="22" fill="#1e1b4b" />
+    <circle cx="50" cy="41" r="16" fill="#ffd0a1" />
+    <path d="M34 38c2-10 8-18 16-18s14 8 16 18c2 2 1 3-2 2-2-2-5-8-14-8s-12 6-14 8c-3 2-4 0-2-2z" fill="#4c1d95" />
+    <path d="M32 44c0 8 2 16 4 20c1-8 1-20-4-20zM68 44c0 8-2 16-4 20c-1-8-1-20 4-20z" fill="#4c1d95" />
+    <path d="M24 88c0-9 11-16 26-16s26 7 26 16v12H24V88z" fill="#db2777" />
+    <path d="M50 72l-7 10h14L50 72z" fill="#ffd0a1" />
+    <defs>
+      <linearGradient id="female-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#ec4899" stopOpacity="0.8" />
+        <stop offset="100%" stopColor="#9d174d" stopOpacity="0.8" />
+      </linearGradient>
+    </defs>
+  </svg>
+);
+
+const NeutralAvatar = ({ initials }: { initials: string }) => (
+  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-sm font-extrabold text-white shrink-0 shadow-lg shadow-purple-500/20 border border-white/10 select-none">
+    {initials}
+  </div>
+);
 
 type Transaction = {
   transaction_id: number;
@@ -143,9 +184,13 @@ export default function DashboardPage() {
                 {/* ───── 1. Greeting Section ───── */}
                 <div className="flex items-center justify-between border-b border-white/5 pb-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-sm font-extrabold text-white shrink-0 shadow-lg shadow-purple-500/20 border border-white/10">
-                      {userInitials}
-                    </div>
+                    {customer?.gender?.toUpperCase() === 'FEMALE' ? (
+                      <FemaleAvatar />
+                    ) : customer?.gender?.toUpperCase() === 'MALE' ? (
+                      <MaleAvatar />
+                    ) : (
+                      <NeutralAvatar initials={userInitials} />
+                    )}
                     <div>
                       <h1 className="text-xl font-black text-white tracking-tight">
                         {(() => {
@@ -236,14 +281,14 @@ export default function DashboardPage() {
                       </div>
                       <span className="text-[11px] font-bold text-slate-200 group-hover:text-white transition">To Bank</span>
                     </Link>
-                    {/* To Aether */}
+                    {/* To LUCE */}
                     <Link href="/transfer" className="glass-panel rounded-[2rem] p-5 flex flex-col items-center gap-2.5 border border-white/5 hover:border-pink-500/20 hover:bg-pink-950/10 transition group">
                       <div className="w-12 h-12 rounded-2xl bg-pink-500/10 flex items-center justify-center group-hover:bg-pink-500/20 text-pink-400 transition duration-300">
                         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
                           <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
                         </svg>
                       </div>
-                      <span className="text-[11px] font-bold text-slate-200 group-hover:text-white transition">To Aether</span>
+                      <span className="text-[11px] font-bold text-slate-200 group-hover:text-white transition">To LUCE</span>
                     </Link>
                     {/* Withdraw */}
                     <Link href="/withdrawal" className="glass-panel rounded-[2rem] p-5 flex flex-col items-center gap-2.5 border border-white/5 hover:border-amber-500/20 hover:bg-amber-950/10 transition group">

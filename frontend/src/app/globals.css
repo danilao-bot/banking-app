@@ -156,3 +156,10 @@ body {
   animation: fadeIn 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
+/* Ensure all main scrollable panels have bottom spacing on mobile viewports to prevent BottomNav overlay clipping */
+@media (max-width: 767px) {
+  main {
+    padding-bottom: 7.5rem !important;
+  }
+}
+

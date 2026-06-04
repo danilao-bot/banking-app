@@ -162,7 +162,7 @@ export default function Sidebar() {
 
         {/* App version */}
         <div className="pt-3 pb-1 px-4">
-          <p className="text-[10px] text-slate-600 font-semibold tracking-widest uppercase">Aether Wallet v1.0</p>
+          <p className="text-[10px] text-slate-600 font-semibold tracking-widest uppercase">LUCE Bank v1.0</p>
         </div>
       </div>
     </aside>

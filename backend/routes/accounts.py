@@ -19,6 +19,28 @@ def create_account(payload: AccountCreate, current_user=Depends(get_current_user
         customer_id = current_user.customer.customer_id
     try:
         account = service.create_account(customer_id, payload.account_type, payload.currency)
+        
+        from services.audit_service import AuditService
+        from services.notification_service import NotificationService
+        
+        AuditService(db).log(
+            user_id=current_user.user_id,
+            action='CREATE_ACCOUNT',
+            entity='account',
+            entity_id=account.account_id,
+            description=f"Created {payload.account_type} account ({account.account_number}) in {payload.currency}"
+        )
+        
+        from models.customer import Customer
+        cust = db.query(Customer).filter(Customer.customer_id == customer_id).first()
+        notify_user_id = cust.user_id if cust else current_user.user_id
+        
+        NotificationService(db).create_notification(
+            user_id=notify_user_id,
+            title='Account Created',
+            message=f"Your new {payload.account_type} account ({account.account_number}) has been successfully created."
+        )
+        
         return account
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc))

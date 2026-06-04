@@ -19,14 +19,14 @@ class QRCodeService:
         
         # Create QR data with account details
         qr_data = {
-            'bank': 'AETHER',
+            'bank': 'LUCE',
             'account_name': f'{customer.first_name} {customer.last_name}',
             'account_number': account.account_number,
             'account_type': account.account_type,
             'currency': account.currency,
         }
         
-        qr_string = f"AETHER|{customer.first_name} {customer.last_name}|{account.account_number}|{account.account_type}"
+        qr_string = f"LUCE|{customer.first_name} {customer.last_name}|{account.account_number}|{account.account_type}"
         
         # Generate QR code
         qr = qrcode.QRCode(

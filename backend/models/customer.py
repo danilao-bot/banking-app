@@ -13,6 +13,7 @@ class Customer(Base):
     phone = Column(String(20))
     address = Column(String(400))
     date_of_birth = Column(Date)
+    gender = Column(String(10), nullable=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
 

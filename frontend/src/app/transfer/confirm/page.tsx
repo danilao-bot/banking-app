@@ -172,7 +172,7 @@ function TransferConfirmationContent() {
               <section className="glass-panel rounded-[2rem] p-8 border border-white/5 space-y-6 h-fit">
                 <h2 className="text-lg font-black text-white tracking-tight">Security Check</h2>
                 <p className="text-xs text-slate-400 leading-relaxed">
-                  Aether security protocols require manual transaction authentication. Double check all destination details. Peer transfers are instant and irreversible.
+                  LUCE security protocols require manual transaction authentication. Double check all destination details. Peer transfers are instant and irreversible.
                 </p>
                 <div className="space-y-3 pt-4">
                   <button

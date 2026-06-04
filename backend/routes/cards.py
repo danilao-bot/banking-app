@@ -40,6 +40,28 @@ def issue_card(payload: CardCreate, current_user=Depends(get_current_user), db: 
     card = service.issue_card(customer_id, account_id, payload.card_type, expiry)
     if not card:
         raise HTTPException(status_code=400, detail='Unable to issue card')
+        
+    from services.audit_service import AuditService
+    from services.notification_service import NotificationService
+    
+    from models.customer import Customer
+    cust = db.query(Customer).filter(Customer.customer_id == customer_id).first()
+    notify_user_id = cust.user_id if cust else current_user.user_id
+    
+    AuditService(db).log(
+        user_id=current_user.user_id,
+        action='ISSUE_CARD',
+        entity='card',
+        entity_id=card.card_id,
+        description=f"Issued a virtual card for account_id {account_id}"
+    )
+    
+    NotificationService(db).create_notification(
+        user_id=notify_user_id,
+        title='Card Issued Successfully',
+        message=f"Your new virtual debit card for account_id {account_id} is active."
+    )
+    
     return card
 
 

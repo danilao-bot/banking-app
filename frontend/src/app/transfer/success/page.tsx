@@ -149,7 +149,7 @@ function TransferSuccessContent() {
                     </div>
 
                     <div className="pt-6 border-t border-dashed border-white/10 flex justify-between items-center text-[10px] text-slate-500 print:border-slate-200 print:text-slate-600">
-                      <span>Aetheris Wallet Operations Group</span>
+                      <span>LUCE Banking Operations Group</span>
                       <span className="font-mono">SECURE SYSTEM HASH CLEARANCE OK</span>
                     </div>
                   </div>

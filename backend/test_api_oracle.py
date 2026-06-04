@@ -1,5 +1,5 @@
 """
-End-to-end Oracle API verification for Aether Banking System
+End-to-end Oracle API verification for LUCE Banking System
 Tests all core banking routes against the live Oracle database
 """
 import sys
@@ -39,7 +39,7 @@ def check(label, status, data, expect_status=200):
     return ok, data
 
 print("=" * 60)
-print("AETHER BANK - ORACLE API END-TO-END TEST")
+print("LUCE BANK - ORACLE API END-TO-END TEST")
 print("=" * 60)
 
 # 1. Health check
@@ -103,7 +103,7 @@ check("GET /api/notifications", s, d)
 # 10. Register new user (gets ₦500,000 bonus)
 print("\n-- New User Registration (₦500k Bonus) --")
 s, d = req("POST", "/api/auth/register", {
-    "email": "oracletest@aether.ng",
+    "email": "oracletest@luce.ng",
     "password": "TestPass123!",
     "first_name": "Oracle",
     "last_name": "Test",

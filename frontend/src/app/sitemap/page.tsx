@@ -67,7 +67,7 @@ export default function SitemapPage() {
           <main className="flex-1 p-4 md:p-8 overflow-y-auto pb-20 md:pb-8 max-w-5xl w-full mx-auto md:mx-0">
             <div className="mb-8">
               <h1 className="text-3xl font-extrabold text-white tracking-tight">Sitemap Directory</h1>
-              <p className="mt-2 text-slate-400 text-sm">Full map of the Aether Retail & Core Banking platform directories and services.</p>
+              <p className="mt-2 text-slate-400 text-sm">Full map of the LUCE Core Banking platform directories and services.</p>
             </div>
 
             <div className="space-y-8">

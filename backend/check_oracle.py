@@ -5,7 +5,7 @@ from database.connection import engine
 from sqlalchemy import text
 
 print("=" * 60)
-print("ORACLE DATABASE VERIFICATION - AETHER BANKING SYSTEM")
+print("ORACLE DATABASE VERIFICATION - LUCE BANKING SYSTEM")
 print("=" * 60)
 
 with engine.connect() as conn:

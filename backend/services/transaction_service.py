@@ -35,7 +35,10 @@ class TransactionService:
         if amount <= 0:
             return None
         account = self.db.query(Account).filter(Account.account_id == account_id).first()
-        if not account or account.status != 'ACTIVE' or account.balance < amount:
+        if not account or account.status != 'ACTIVE':
+            return None
+        amount_dec = Decimal(str(amount))
+        if account.balance < amount_dec:
             return None
         account.balance -= Decimal(str(amount))
         transaction = Transaction(
@@ -61,7 +64,8 @@ class TransactionService:
         target = self.db.query(Account).filter(Account.account_id == target_account_id).first()
         if not source or not target or source.status != 'ACTIVE' or target.status != 'ACTIVE':
             return None
-        if source.balance < amount:
+        amount_dec = Decimal(str(amount))
+        if source.balance < amount_dec:
             return None
 
         source.balance -= Decimal(str(amount))

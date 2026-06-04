@@ -24,7 +24,7 @@ const helpCategories: HelpCategory[] = [
       },
       {
         question: 'How do I verify my account?',
-        answer: 'Your account is automatically verified upon registration. No additional steps are needed to start using AETHER.',
+        answer: 'Your account is automatically verified upon registration. No additional steps are needed to start using LUCE.',,
       },
     ],
   },
@@ -38,7 +38,7 @@ const helpCategories: HelpCategory[] = [
       },
       {
         question: 'What is a transfer fee?',
-        answer: 'AETHER offers free transfers between accounts. Some third-party services may have their own fees.',
+        answer: 'LUCE offers free transfers between accounts. Some third-party services may have their own fees.',,
       },
       {
         question: 'How long does a transfer take?',
@@ -78,7 +78,7 @@ const helpCategories: HelpCategory[] = [
       },
       {
         question: 'What\'s the loan approval time?',
-        answer: 'Most applications are approved within minutes. Funds are disbursed directly to your AETHER account.',
+        answer: 'Most applications are approved within minutes. Funds are disbursed directly to your LUCE account.',,
       },
       {
         question: 'What are the interest rates?',
@@ -100,7 +100,7 @@ const helpCategories: HelpCategory[] = [
       },
       {
         question: 'What payment methods do you accept?',
-        answer: 'All AETHER account funds can be used for bill payments and services.',
+        answer: 'All LUCE account funds can be used for bill payments and services.',,
       },
     ],
   },
@@ -110,7 +110,7 @@ const helpCategories: HelpCategory[] = [
     items: [
       {
         question: 'Is my account safe?',
-        answer: 'Yes! AETHER uses bank-level encryption and security measures to protect your account.',
+        answer: 'Yes! LUCE uses bank-level encryption and security measures to protect your account.',,
       },
       {
         question: 'What should I do if I forget my password?',
@@ -217,7 +217,7 @@ export default function HelpPage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <a
-                  href="mailto:support@aether.bank"
+                  href="mailto:support@luce.bank"
                   className="px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition text-center"
                 >
                   📧 Email Support

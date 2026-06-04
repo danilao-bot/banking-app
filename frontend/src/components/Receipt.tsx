@@ -87,10 +87,10 @@ export default function Receipt({ transaction, accountDetails, recipientDetails,
 
         {/* Receipt Content */}
         <div id="receipt-content" className="p-6 space-y-6 text-slate-900 print:bg-white">
-          {/* AETHER Header */}
+          {/* LUCE Header */}
           <div className="text-center">
             <h1 className="text-2xl font-extrabold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-cyan-600">
-              AETHER
+              LUCE
             </h1>
             <p className="text-xs text-slate-500 mt-1">Digital Banking Platform</p>
           </div>
@@ -161,7 +161,7 @@ export default function Receipt({ transaction, accountDetails, recipientDetails,
           {/* Footer Message */}
           <div className="text-center pt-4 border-t border-slate-200">
             <p className="text-xs text-slate-500">
-              Thank you for using AETHER Banking.
+              Thank you for using LUCE Banking.
               <br />
               Keep this receipt for your records.
             </p>

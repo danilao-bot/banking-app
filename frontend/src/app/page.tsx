@@ -18,7 +18,7 @@ export default function Home() {
       <div className="glow-circle bg-cyan-500 w-[30vw] h-[30vw] left-[20vw] bottom-[-5vw]" />
 
       <div className="relative z-10">
-        <Header title="AETHER" />
+        <Header title="LUCE" />
         
         <main className="mx-auto flex max-w-7xl flex-col gap-24 px-6 py-20">
           
@@ -34,7 +34,7 @@ export default function Home() {
                 <span className="text-glow-gradient">Digital Wallet</span>
               </h2>
               <p className="max-w-xl text-lg leading-relaxed text-slate-400">
-                Pay, send, and save instantly. Experience Aether's premium glassmorphic portal designed to make managing your daily finances faster, cheaper, and more rewarding.
+                Pay, send, and save instantly. Experience LUCE's premium glassmorphic portal designed to make managing your daily finances faster, cheaper, and more rewarding.
               </p>
               
               <div className="flex flex-wrap gap-4 pt-4">

@@ -164,7 +164,7 @@ export default function FixedDepositPage() {
           <main className="flex-1 p-4 md:p-8 overflow-y-auto max-w-5xl w-full mx-auto md:mx-0 pb-20 md:pb-8">
             <div className="mb-8">
               <h1 className="text-3xl font-extrabold text-white tracking-tight">Fixed Deposits</h1>
-              <p className="mt-2 text-slate-400 text-sm">Lock funds for a specific period and earn high-yield interest guaranteed by Aether.</p>
+              <p className="mt-2 text-slate-400 text-sm">Lock funds for a specific period and earn high-yield interest guaranteed by LUCE.</p>
             </div>
 
             {loading && accounts.length === 0 ? (

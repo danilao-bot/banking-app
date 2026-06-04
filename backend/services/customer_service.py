@@ -6,7 +6,7 @@ class CustomerService:
     def __init__(self, db: Session):
         self.db = db
 
-    def create_customer(self, user_id: int, first_name: str, last_name: str, phone: str = None, address: str = None, date_of_birth = None):
+    def create_customer(self, user_id: int, first_name: str, last_name: str, phone: str = None, address: str = None, date_of_birth = None, gender: str = None):
         customer = Customer(
             user_id=user_id,
             first_name=first_name,
@@ -14,6 +14,7 @@ class CustomerService:
             phone=phone,
             address=address,
             date_of_birth=date_of_birth,
+            gender=gender,
         )
         self.db.add(customer)
         self.db.commit()

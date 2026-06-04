@@ -9,6 +9,7 @@ class CustomerCreate(BaseModel):
     phone: Optional[str] = None
     address: Optional[str] = None
     date_of_birth: Optional[date] = None
+    gender: Optional[str] = None
 
 
 class CustomerResponse(BaseModel):
@@ -19,6 +20,7 @@ class CustomerResponse(BaseModel):
     phone: Optional[str]
     address: Optional[str]
     date_of_birth: Optional[date]
+    gender: Optional[str]
 
     class Config:
         orm_mode = True

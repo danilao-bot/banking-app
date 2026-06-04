@@ -108,7 +108,7 @@ export default function ServicesPage() {
           <main className="flex-1 p-4 md:p-8 overflow-y-auto pb-20 md:pb-8">
             <div className="mb-8 max-w-5xl mx-auto md:mx-0">
               <h1 className="text-3xl font-extrabold text-white tracking-tight">Utility Services</h1>
-              <p className="mt-2 text-slate-400 text-sm">Pay bills, purchase airtime, data and recharge utilities instantly from your Aether wallets.</p>
+              <p className="mt-2 text-slate-400 text-sm">Pay bills, purchase airtime, data and recharge utilities instantly from your LUCE wallets.</p>
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto md:mx-0">

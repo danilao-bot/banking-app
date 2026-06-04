@@ -19,6 +19,28 @@ def request_loan(payload: LoanCreate, current_user=Depends(get_current_user), db
     loan = service.request_loan(customer_id, payload.amount, payload.interest_rate, payload.term_months)
     if not loan:
         raise HTTPException(status_code=400, detail='Unable to request loan')
+        
+    from services.audit_service import AuditService
+    from services.notification_service import NotificationService
+    
+    from models.customer import Customer
+    cust = db.query(Customer).filter(Customer.customer_id == customer_id).first()
+    notify_user_id = cust.user_id if cust else current_user.user_id
+    
+    AuditService(db).log(
+        user_id=current_user.user_id,
+        action='REQUEST_LOAN',
+        entity='loan',
+        entity_id=loan.loan_id,
+        description=f"Requested a loan of ₦{payload.amount:.2f} for {payload.term_months} months"
+    )
+    
+    NotificationService(db).create_notification(
+        user_id=notify_user_id,
+        title='Loan Application Received',
+        message=f"Your loan request of ₦{payload.amount:.2f} has been received and is under review."
+    )
+    
     return loan
 
 
@@ -42,4 +64,24 @@ def approve_loan(loan_id: int, current_user=Depends(require_role('ADMIN', 'MANAG
     loan = service.approve_loan(loan_id, current_user.employee.employee_id if hasattr(current_user, 'employee') else None)
     if not loan:
         raise HTTPException(status_code=400, detail='Unable to approve loan')
+        
+    from services.audit_service import AuditService
+    from services.notification_service import NotificationService
+    
+    notify_user_id = loan.customer.user_id if (loan.customer) else current_user.user_id
+    
+    AuditService(db).log(
+        user_id=current_user.user_id,
+        action='APPROVE_LOAN',
+        entity='loan',
+        entity_id=loan.loan_id,
+        description=f"Approved loan ID {loan_id} of ₦{loan.amount:.2f}"
+    )
+    
+    NotificationService(db).create_notification(
+        user_id=notify_user_id,
+        title='Loan Approved!',
+        message=f"Congratulations! Your loan request of ₦{loan.amount:.2f} has been approved."
+    )
+    
     return loan

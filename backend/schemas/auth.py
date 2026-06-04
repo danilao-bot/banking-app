@@ -7,6 +7,7 @@ class RegisterRequest(BaseModel):
     password: str
     first_name: str
     last_name: str
+    gender: Optional[str] = None
 
 
 class LoginRequest(BaseModel):

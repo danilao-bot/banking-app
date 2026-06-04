@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Core Banking System',
-  description: 'Banking dashboard with authenticated customer and account management.',
+  title: 'LUCE — Digital Banking Platform',
+  description: 'LUCE Core Banking System — Premium Nigerian digital banking dashboard with customer and account management.',
 };
 
 export default function RootLayout({

@@ -21,6 +21,7 @@ def register(payload: RegisterRequest, db: Session = Depends(get_db)):
         user_id=user.user_id,
         first_name=payload.first_name,
         last_name=payload.last_name,
+        gender=payload.gender,
     )
 
     from services.account_service import AccountService
@@ -36,8 +37,26 @@ def register(payload: RegisterRequest, db: Session = Depends(get_db)):
     transaction_service.deposit(
         account_id=account.account_id,
         amount=500000.00,
-        description='Aether Welcome Signup Reward',
+        description='LUCE Welcome Signup Reward',
         reference='REF-SIGNUP-500K'
+    )
+
+    # Log action & generate notification
+    from services.audit_service import AuditService
+    from services.notification_service import NotificationService
+    
+    AuditService(db).log(
+        user_id=user.user_id,
+        action='REGISTER',
+        entity='user',
+        entity_id=user.user_id,
+        description=f'User registered successfully with email {payload.email}'
+    )
+    
+    NotificationService(db).create_notification(
+        user_id=user.user_id,
+        title='Welcome to LUCE Bank!',
+        message=f'Hello {payload.first_name}, your savings wallet has been funded with a welcome signup reward of ₦500,000.00.'
     )
 
     token = auth_service.create_token(user)
@@ -50,6 +69,25 @@ def login(payload: LoginRequest, db: Session = Depends(get_db)):
     user = auth_service.authenticate(payload.email, payload.password)
     if not user:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail='Invalid credentials')
+    
+    # Log login event
+    from services.audit_service import AuditService
+    from services.notification_service import NotificationService
+    
+    AuditService(db).log(
+        user_id=user.user_id,
+        action='LOGIN',
+        entity='user',
+        entity_id=user.user_id,
+        description=f'User logged in successfully'
+    )
+    
+    NotificationService(db).create_notification(
+        user_id=user.user_id,
+        title='Successful Login',
+        message='A new login was recorded for your account.'
+    )
+    
     token = auth_service.create_token(user)
     return TokenResponse(access_token=token, role=user.role)
 
