@@ -24,8 +24,10 @@ class TransactionService:
             reference=reference,
             status='COMPLETED',
         )
+        self.db.add(account)
         self.db.add(transaction)
         self.db.commit()
+        self.db.refresh(account)
         self.db.refresh(transaction)
         return transaction
 
@@ -44,8 +46,10 @@ class TransactionService:
             reference=reference,
             status='COMPLETED',
         )
+        self.db.add(account)
         self.db.add(transaction)
         self.db.commit()
+        self.db.refresh(account)
         self.db.refresh(transaction)
         return transaction
 
@@ -83,8 +87,13 @@ class TransactionService:
             status='COMPLETED',
         )
 
+        # Explicitly add modified accounts and transactions to session
+        self.db.add(source)
+        self.db.add(target)
         self.db.add_all([source_transaction, target_transaction])
         self.db.commit()
+        self.db.refresh(source)
+        self.db.refresh(target)
         self.db.refresh(source_transaction)
         self.db.refresh(target_transaction)
         return source_transaction

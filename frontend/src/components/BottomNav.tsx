@@ -96,11 +96,11 @@ type Tab = {
 };
 
 const tabs: Tab[] = [
-  { label: 'Home',     href: '/dashboard', icon: (a) => <HomeIcon active={a} /> },
-  { label: 'Transfer', href: '/transfer',  icon: (a) => <TransferIcon active={a} /> },
-  { label: 'Savings',  href: '/savings',   icon: (a) => <SavingsIcon active={a} /> },
-  { label: 'Services', href: '/services',  icon: (a) => <ServicesIcon active={a} /> },
-  { label: 'Sitemap',  href: '/sitemap',   icon: (a) => <SitemapIcon active={a} /> },
+  { label: 'Home',        href: '/dashboard',     icon: (a) => <HomeIcon active={a} /> },
+  { label: 'Accounts',    href: '/accounts',      icon: (a) => <SavingsIcon active={a} /> },
+  { label: 'Transactions',href: '/transactions',  icon: (a) => <TransferIcon active={a} /> },
+  { label: 'Services',    href: '/services',      icon: (a) => <ServicesIcon active={a} /> },
+  { label: 'More',        href: '/sitemap',       icon: (a) => <SitemapIcon active={a} /> },
 ];
 
 export default function BottomNav() {
@@ -115,7 +115,7 @@ export default function BottomNav() {
     <nav
       className="md:hidden fixed bottom-0 left-0 right-0 z-50 border-t border-white/5 bg-slate-950/95 backdrop-blur-xl pb-[env(safe-area-inset-bottom)]"
     >
-      <div className="flex items-center justify-around px-2 py-2">
+      <div className="flex items-center justify-around px-1 py-3 gap-1">
         {tabs.map((tab) => {
           const isActive = pathname === tab.href || (tab.href !== '/dashboard' && pathname.startsWith(tab.href));
 
@@ -123,13 +123,13 @@ export default function BottomNav() {
             <Link
               key={tab.label}
               href={tab.href}
-              className="flex flex-col items-center justify-center gap-0.5 min-w-[56px] py-1 transition-colors duration-200"
+              className="flex flex-col items-center justify-center gap-1 flex-1 py-2 rounded-lg transition-all duration-200 active:bg-slate-800"
             >
-              <span className={isActive ? 'text-purple-400' : 'text-slate-500'}>
+              <span className={`${isActive ? 'text-purple-400' : 'text-slate-500'}`}>
                 {tab.icon(isActive)}
               </span>
               <span
-                className={`text-[10px] font-semibold tracking-wide ${
+                className={`text-[11px] font-semibold tracking-tight truncate px-1 ${
                   isActive ? 'text-purple-400' : 'text-slate-500'
                 }`}
               >

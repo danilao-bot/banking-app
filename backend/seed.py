@@ -25,7 +25,7 @@ from models.notification import Notification
 
 
 def seed_database():
-    print("SEEDB: Wiping local SQLite database tables...")
+    print("SEEDB: Wiping Oracle database tables...")
     # Drop all and recreate schemas
     Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)

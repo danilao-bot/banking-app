@@ -100,7 +100,7 @@ function TransferSuccessContent() {
                       </div>
                       <h2 className="text-sm font-bold uppercase tracking-[0.25em] text-cyan-400">Transaction Successful</h2>
                       <p className="text-4xl font-black text-white tracking-tight print:text-slate-900">
-                        {transaction.currency === 'NGN' ? '₦' : transaction.currency === 'USD' ? '$' : transaction.currency} {transaction.amount.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                        {transaction.currency === 'NGN' ? '₦' : transaction.currency === 'USD' ? '₦' : transaction.currency} {transaction.amount.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                       </p>
                       <p className="text-xs text-slate-400 print:text-slate-600">Processed on {getFormatDate(transaction.transaction_date)}</p>
                     </div>

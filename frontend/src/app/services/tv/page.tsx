@@ -154,7 +154,7 @@ export default function TvPage() {
   const getCurrencySymbol = (accId: number | null) => {
     const acc = accounts.find((a) => a.account_id === accId);
     if (!acc) return '₦';
-    return acc.currency === 'NGN' ? '₦' : acc.currency === 'USD' ? '$' : acc.currency;
+    return acc.currency === 'NGN' ? '₦' : acc.currency === 'USD' ? '₦' : acc.currency;
   };
 
   return (
@@ -197,7 +197,7 @@ export default function TvPage() {
                     >
                       {accounts.map((account) => (
                         <option key={account.account_id} value={account.account_id} className="bg-slate-950 text-slate-200">
-                          {account.account_type} Wallet ({account.account_number}) • {account.currency === 'NGN' ? '₦' : account.currency === 'USD' ? '$' : account.currency} {account.balance.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                          {account.account_type} Wallet ({account.account_number}) • {account.currency === 'NGN' ? '₦' : account.currency === 'USD' ? '₦' : account.currency} {account.balance.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                         </option>
                       ))}
                     </select>

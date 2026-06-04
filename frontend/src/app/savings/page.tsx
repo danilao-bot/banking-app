@@ -161,7 +161,7 @@ export default function SavingsPage() {
   const getCurrencySymbol = (accId: number | null) => {
     const acc = accounts.find((a) => a.account_id === accId);
     if (!acc) return '₦';
-    return acc.currency === 'NGN' ? '₦' : acc.currency === 'USD' ? '$' : acc.currency;
+    return acc.currency === 'NGN' ? '₦' : acc.currency === 'USD' ? '₦' : acc.currency;
   };
 
   const getProgressPercentage = (balance: number, target: number) => {

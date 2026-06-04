@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from services.account_service import AccountService
+from services.qrcode_service import QRCodeService
 from database.connection import get_db
 from schemas.account import AccountCreate, AccountResponse
 from utils.auth import get_current_user
@@ -82,3 +83,21 @@ def get_balance(account_id: int, current_user=Depends(get_current_user), db: Ses
             raise HTTPException(status_code=403, detail='Insufficient permissions to access this account')
             
     return {'account_id': account_id, 'balance': float(account.balance)}
+
+
+@router.get('/me/qrcode')
+def get_my_qrcode(current_user=Depends(get_current_user), db: Session = Depends(get_db)):
+    """Generate QR code for current user's account for receiving money"""
+    if not current_user.customer:
+        raise HTTPException(status_code=400, detail='No customer profile found')
+    
+    qr_code = QRCodeService.generate_account_qr(current_user.customer.customer_id, db)
+    if not qr_code:
+        raise HTTPException(status_code=400, detail='Unable to generate QR code')
+    
+    return {
+        'qrcode': qr_code,
+        'account_name': f"{current_user.customer.first_name} {current_user.customer.last_name}",
+        'account_number': current_user.customer.accounts[0].account_number if current_user.customer.accounts else None
+    }
+

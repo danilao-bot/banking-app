@@ -18,7 +18,7 @@ export default function AccountCard({ accountNumber, accountType, balance, curre
       </div>
       <p className="mt-4 text-sm font-mono tracking-wider text-slate-300">•••• {accountNumber.slice(-4)}</p>
       <p className="mt-6 text-2xl font-extrabold text-white tracking-tight">
-        <span className="text-sm font-semibold text-slate-500 mr-1">{currency === 'NGN' ? '₦' : currency === 'USD' ? '$' : currency}</span>
+        <span className="text-sm font-semibold text-slate-500 mr-1">{currency === 'NGN' ? '₦' : currency === 'USD' ? '₦' : currency}</span>
         {balance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
       </p>
       

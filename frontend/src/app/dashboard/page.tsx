@@ -84,7 +84,7 @@ export default function DashboardPage() {
   const primaryAccount = accounts[0] || null;
 
   const formatBalance = (amount: number, currency: string) => {
-    const symbol = currency === 'NGN' ? '\u20A6' : currency === 'USD' ? '$' : currency;
+    const symbol = currency === 'NGN' ? '\u20A6' : currency === 'USD' ? '₦' : currency;
     return `${symbol}${amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
   };
 
@@ -148,9 +148,13 @@ export default function DashboardPage() {
                     </div>
                     <div>
                       <h1 className="text-xl font-black text-white tracking-tight">
-                        Hi, {customer?.first_name || 'Customer'}
+                        {(() => {
+                          const hour = new Date().getHours();
+                          if (hour < 12) return 'Good morning';
+                          if (hour < 17) return 'Good afternoon';
+                          return 'Good evening';
+                        })()}, {customer?.first_name || 'Customer'}
                       </h1>
-                      <p className="text-xs text-slate-400 mt-0.5">Welcome to your secure Aether portal</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">

@@ -4,11 +4,12 @@ from schemas.auth import RegisterRequest, LoginRequest, TokenResponse
 from services.auth_service import AuthService
 from services.customer_service import CustomerService
 from database.connection import get_db
+from utils.auth import get_current_user
 
 router = APIRouter()
 
 
-@router.post('/register', response_model=TokenResponse)
+@router.post('/register', response_model=TokenResponse, status_code=status.HTTP_201_CREATED)
 def register(payload: RegisterRequest, db: Session = Depends(get_db)):
     auth_service = AuthService(db)
     user = auth_service.register(payload.email, payload.password)
@@ -51,3 +52,24 @@ def login(payload: LoginRequest, db: Session = Depends(get_db)):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail='Invalid credentials')
     token = auth_service.create_token(user)
     return TokenResponse(access_token=token, role=user.role)
+
+
+@router.get('/me')
+def get_me(current_user=Depends(get_current_user)):
+    """Return the currently authenticated user's profile and linked customer details."""
+    profile = {
+        'user_id': current_user.user_id,
+        'email': current_user.email,
+        'role': current_user.role,
+        'created_at': str(current_user.created_at),
+    }
+    if current_user.customer:
+        c = current_user.customer
+        profile['customer'] = {
+            'customer_id': c.customer_id,
+            'first_name': c.first_name,
+            'last_name': c.last_name,
+            'phone': c.phone,
+            'address': c.address,
+        }
+    return profile

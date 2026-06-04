@@ -79,8 +79,7 @@ const FixedIcon = () => (
 );
 
 const links: SidebarLink[] = [
-  { label: 'Wallet',       href: '/dashboard',    icon: <WalletIcon /> },
-  { label: 'Transfer',     href: '/transfer',     icon: <TransferIcon /> },
+  { label: 'Wallet Dashboard', href: '/dashboard',    icon: <WalletIcon /> },
   { label: 'My Cards',     href: '/cards',        icon: <CardIcon /> },
   { label: 'Quick Loans',  href: '/loans',        icon: <LoanIcon /> },
   { label: 'Savings Goals',href: '/savings',      icon: <SavingsIcon /> },

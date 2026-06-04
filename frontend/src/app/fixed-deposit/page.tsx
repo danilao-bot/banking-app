@@ -141,7 +141,7 @@ export default function FixedDepositPage() {
   const getCurrencySymbol = (accId: number | null) => {
     const acc = accounts.find((a) => a.account_id === accId);
     if (!acc) return '₦';
-    return acc.currency === 'NGN' ? '₦' : acc.currency === 'USD' ? '$' : acc.currency;
+    return acc.currency === 'NGN' ? '₦' : acc.currency === 'USD' ? '₦' : acc.currency;
   };
 
   const calculateMaturityEstimate = (principal: number, termMonths: number) => {
